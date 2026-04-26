@@ -21,7 +21,6 @@ TreeWithRoot -> Tree
 
 Tree -> 
     Subtree ";"
-  | Branch ";"
 
 # 
 # Tree -> 
@@ -104,11 +103,9 @@ BranchSet ->
       %}
 
 Branch -> 
-    Subtree OptionalLength
+    Subtree
       {% 
         data => { 
-          // Exclude OptionalLength
-          // since length info is in the node
           return data[0]; 
         }
       %}

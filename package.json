@@ -1,18 +1,31 @@
 {
   "name": "nearley-newick",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Newick tree format parser using nearley.js",
-  "main": "lib/index.js",
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    }
+  },
+  "bin": {
+    "nearley-newick": "./bin/nearley-newick.js"
+  },
   "directories": {
     "lib": "lib",
     "test": "__tests__"
   },
   "files": [
+    "bin",
     "lib"
   ],
   "scripts": {
-    "compile": "node ./node_modules/nearley/bin/nearleyc lib/newick_grammar.ne -o lib/newick_grammar.js",
-    "test": "node ./__tests__/nearley-newick.test.js"
+    "compile": "nearleyc lib/newick_grammar.ne -o lib/newick_grammar.cjs",
+    "test": "node --test \"__tests__/*.test.js\"",
+    "prepublishOnly": "pnpm run compile && pnpm test"
   },
   "repository": {
     "type": "git",
@@ -23,6 +36,9 @@
   ],
   "author": "BetweenTwoTests",
   "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
   "bugs": {
     "url": "https://github.com/notung-agi/nearley-newick/issues"
   },
